@@ -1,4 +1,5 @@
-import { Card, CardBody, User } from "@nextui-org/react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Card, CardContent } from "@/components/ui/card";
 import { getServerSession } from "next-auth";
 
 import options from "@/config/auth";
@@ -10,16 +11,13 @@ export default async function Profile() {
 
   return (
     <Card className="mx-auto mt-4 max-w-md">
-      <CardBody>
-        <User
-          name={session.user?.name}
-          description={session.user?.email}
-          avatarProps={{
-            showFallback: !session.user?.image,
-            src: session.user?.image || "",
-          }}
-        />
-      </CardBody>
+      <CardContent>
+        <Avatar className="transition-transform">
+          <AvatarImage src={`${session.user?.image}`} />
+          <AvatarFallback>{session.user?.name?.[0]}</AvatarFallback>
+          <p>{session.user?.email}</p>
+        </Avatar>
+      </CardContent>
     </Card>
   );
 }

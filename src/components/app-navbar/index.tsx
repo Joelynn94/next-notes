@@ -1,17 +1,13 @@
 "use client";
 
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+} from "@/components/ui/navigation-menu";
 import React from "react";
 
-import {
-  Link,
-  Navbar,
-  NavbarBrand,
-  NavbarContent,
-  NavbarItem,
-  NavbarMenu,
-  NavbarMenuItem,
-  NavbarMenuToggle,
-} from "@nextui-org/react";
 import { IconPackage } from "@tabler/icons-react";
 import { useSession } from "next-auth/react";
 
@@ -30,61 +26,36 @@ export default function AppNavbar() {
   ];
 
   if (status === "authenticated") {
-    menuItems.push(
-      {
-        label: "Profile",
-        href: "/profile",
-      },
-      {
-        label: "Guestbook",
-        href: "/guestbook",
-      }
-    );
+    menuItems.push({
+      label: "Profile",
+      href: "/profile",
+    });
   }
 
   return (
-    <Navbar onMenuOpenChange={setIsMenuOpen}>
-      <NavbarContent>
-        <NavbarMenuToggle
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          className="sm:hidden"
-        />
-        <NavbarBrand>
+    <NavigationMenu>
+      <NavigationMenuList>
+        <NavigationMenuItem>
           <IconPackage />
           <p className="font-bold text-inherit">Next.js Starter</p>
-        </NavbarBrand>
-      </NavbarContent>
+        </NavigationMenuItem>
+      </NavigationMenuList>
 
-      <NavbarContent className="hidden gap-4 sm:flex" justify="center">
-        {menuItems.map((item, index) => (
-          <NavbarItem key={`${item}-${index}`}>
-            <Link className="w-full" href={item.href} size="lg">
-              {item.label}
-            </Link>
-          </NavbarItem>
-        ))}
-        <NavbarItem>
-          <ThemeSwitcher />
-        </NavbarItem>
-        <NavbarItem>
-          <AuthButton minimal={false} />
-        </NavbarItem>
-      </NavbarContent>
-      <NavbarMenu>
-        <NavbarMenuItem>
+      <NavigationMenuList>
+        <NavigationMenuItem>
           <ThemeSwitcher showLabel />
-        </NavbarMenuItem>
+        </NavigationMenuItem>
         {menuItems.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`}>
-            <Link className="w-full" href={item.href} size="lg">
+          <NavigationMenuItem key={`${item}-${index}`}>
+            <NavigationMenuLink className="w-full" href={item.href}>
               {item.label}
-            </Link>
-          </NavbarMenuItem>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
         ))}
-        <NavbarMenuItem>
-          <AuthButton />
-        </NavbarMenuItem>
-      </NavbarMenu>
-    </Navbar>
+        <NavigationMenuItem>
+          <AuthButton minimal={false} />
+        </NavigationMenuItem>
+      </NavigationMenuList>
+    </NavigationMenu>
   );
 }
