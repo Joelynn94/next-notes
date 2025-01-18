@@ -11,8 +11,8 @@ import { IconMoon, IconSun } from "@tabler/icons-react";
 
 import { useTheme } from "next-themes";
 
-export function ThemeSwitcher({ showLabel }: { showLabel?: boolean }) {
-  const { theme, setTheme } = useTheme();
+export function ThemeSwitcher() {
+  const { setTheme } = useTheme();
 
   return (
     <DropdownMenu>
