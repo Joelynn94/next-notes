@@ -25,10 +25,7 @@ export const env = createEnv({
       .optional(),
   },
   onValidationError: (error: ZodError) => {
-    console.error(
-      "❌ Invalid environment variables:",
-      error.flatten().fieldErrors
-    );
+    console.error("❌ Invalid environment variables:", error.flatten().fieldErrors);
     process.exit(1);
   },
   emptyStringAsUndefined: true,

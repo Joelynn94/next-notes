@@ -13,19 +13,14 @@ const guestbookEntries = pgTable("guestbook_entries", {
   createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
 });
 
-export const guestbookEntriesRelations = relations(
-  guestbookEntries,
-  ({ one }) => ({
-    user: one(users, {
-      fields: [guestbookEntries.userId],
-      references: [users.id],
-    }),
-  })
-);
+export const guestbookEntriesRelations = relations(guestbookEntries, ({ one }) => ({
+  user: one(users, {
+    fields: [guestbookEntries.userId],
+    references: [users.id],
+  }),
+}));
 
-export const InsertGuestbookEntrySchema = createInsertSchema(
-  guestbookEntries
-).omit({
+export const InsertGuestbookEntrySchema = createInsertSchema(guestbookEntries).omit({
   userId: true,
   createdAt: true,
 });
