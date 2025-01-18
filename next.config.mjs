@@ -7,9 +7,9 @@ jiti("./src/env/server.ts");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    typedRoutes: true,
-  },
+  // experimental: {
+  //   typedRoutes: true,
+  // },
   // Recommended: this will reduce output
   // Docker image size by 80%+
   output: "standalone",

@@ -1,28 +1,18 @@
 "use client";
 
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { IconBrandGoogle } from "@tabler/icons-react";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 export default function AuthButton({ minimal = true }: { minimal?: boolean }) {
   const { data, status } = useSession();
-
-  if (status === "loading") {
-    return (
-      <div className="flex h-screen items-center justify-center">
-        <div className="text-2xl font-bold text-gray-800">Loading...</div>
-      </div>
-    );
-  }
 
   if (status === "authenticated") {
     const signOutClick = () =>
