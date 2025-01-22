@@ -2,7 +2,7 @@ import { pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
 
 import users from "./users";
 
-const sessions = pgTable("session", {
+const sessions = pgTable("sessions", {
   sessionToken: text("sessionToken").primaryKey(),
   userId: uuid("userId")
     .notNull()

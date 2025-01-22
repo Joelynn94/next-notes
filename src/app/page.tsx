@@ -1,6 +1,12 @@
 import { Button } from "@/components/ui/button";
+import db from "@/db";
 
 export default async function Home() {
+  const result = await db.execute(`
+    SELECT *
+    FROM notes
+  `);
+
   const tags = [
     "Cooking",
     "Dev",
@@ -38,6 +44,7 @@ export default async function Home() {
       <div className="flex-1 p-4">
         <h1 className="text-2xl font-bold">Home Page</h1>
         <p>Welcome to the home page!</p>
+        <pre>{JSON.stringify(result, null, 2)}</pre>
       </div>
     </div>
   );

@@ -8,6 +8,7 @@ import * as schema from "./schema/index";
 export const client = postgres(env.DATABASE_URL, {
   max: env.DB_MIGRATING ? 1 : undefined,
 });
+
 const db = drizzle(client, {
   schema,
 });

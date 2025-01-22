@@ -4,7 +4,7 @@ import type { AdapterAccount } from "next-auth/adapters";
 import users from "./users";
 
 const accounts = pgTable(
-  "account",
+  "accounts",
   {
     userId: uuid("userId")
       .notNull()

@@ -5,8 +5,22 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1726145669805,
-      "tag": "0000_furry_loa",
+      "when": 1737321404891,
+      "tag": "0000_fixed_rockslide",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1737321785994,
+      "tag": "0001_dry_nightshade",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1737322032562,
+      "tag": "0002_legal_landau",
       "breakpoints": true
     }
   ]
