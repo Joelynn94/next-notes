@@ -1,11 +1,11 @@
 import { Button } from "@/components/ui/button";
 import db from "@/db";
+import { notes } from "@/db/schema";
+import { desc } from "drizzle-orm";
+import { UpdateNoteForm } from "./update-note-form";
 
 export default async function Home() {
-  const result = await db.execute(`
-    SELECT *
-    FROM notes
-  `);
+  const notesResult = await db.select().from(notes).orderBy(desc(notes.createdAt));
 
   const tags = [
     "Cooking",
@@ -44,7 +44,9 @@ export default async function Home() {
       <div className="flex-1 p-4">
         <h1 className="text-2xl font-bold">Home Page</h1>
         <p>Welcome to the home page!</p>
-        <pre>{JSON.stringify(result, null, 2)}</pre>
+        <pre>{JSON.stringify(notesResult, null, 2)}</pre>
+
+        <UpdateNoteForm />
       </div>
     </div>
   );
