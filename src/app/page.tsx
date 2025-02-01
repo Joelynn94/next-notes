@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import db from "@/db";
 import { notes } from "@/db/schema";
 import { desc } from "drizzle-orm";
@@ -21,33 +20,8 @@ export default async function Home() {
   ];
 
   return (
-    // create an aside layout with a sidebar and main content area
-    <div className="flex h-full">
-      {/* aside */}
-      <div className="w-64 border-r border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-900">
-        <Button variant="default" className="bg: mb-6 w-full justify-start">
-          Create Note
-        </Button>
-        <p className="mb-2 text-sm font-medium text-gray-500 dark:text-gray-400">Tags</p>
-        <ul className="space-y-1">
-          {tags.map((tag) => (
-            <li key={tag}>
-              <Button variant="ghost" className="w-full justify-start">
-                {tag}
-              </Button>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      {/* content */}
-      <div className="flex-1 p-4">
-        <h1 className="text-2xl font-bold">Home Page</h1>
-        <p>Welcome to the home page!</p>
-        <pre>{JSON.stringify(notesResult, null, 2)}</pre>
-
-        <UpdateNoteForm />
-      </div>
+    <div className="flex-1 p-6">
+      <UpdateNoteForm />
     </div>
   );
 }

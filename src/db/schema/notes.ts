@@ -1,4 +1,5 @@
-import { pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
+import { InferInsertModel, InferSelectModel } from "drizzle-orm";
+import { boolean, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
 // import users from "./users";
 
 const notes = pgTable("notes", {
@@ -9,7 +10,7 @@ const notes = pgTable("notes", {
   lastEdited: timestamp("lastEdited", { mode: "date" })
     .defaultNow()
     .$onUpdate(() => new Date()),
-  isArchived: text("isArchived").$type<boolean>().notNull().default(false),
+  isArchived: boolean("isArchived").notNull().default(false),
   createdAt: timestamp("createdAt", { mode: "date" }).notNull().defaultNow(),
   // userId: uuid("userId")
   // .notNull()
@@ -17,3 +18,6 @@ const notes = pgTable("notes", {
 });
 
 export default notes;
+
+export type Note = InferSelectModel<typeof notes>; // Single note type
+export type NewNote = InferInsertModel<typeof notes>; // Type for inserting new notes
