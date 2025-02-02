@@ -8,10 +8,15 @@ interface NotePageProps {
 }
 
 export default async function NotePage({ params }: NotePageProps) {
+  const { id: noteId } = await params;
+
+  if (!noteId) {
+    return <p className="p-6 text-red-500">Invalid Note ID.</p>;
+  }
   const note = await db
     .select()
     .from(notes)
-    .where(eq(notes.id, params.id))
+    .where(eq(notes.id, noteId))
     .then((results) => results[0]); // Fetch first result
 
   if (!note) {

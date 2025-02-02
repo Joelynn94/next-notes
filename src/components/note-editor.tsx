@@ -1,47 +1,50 @@
 "use client";
 
+import { updateNote } from "@/app/notes/actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Note } from "@/db/schema/notes";
 import { Clock, Tag } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useActionState } from "react";
+import { useFormStatus } from "react-dom";
+import DeleteNoteButton from "./delete-note-button";
 
 interface NoteEditorProps {
   note?: Note; // Accepts a single note or undefined
 }
 
-export default function NoteEditor({ note }: NoteEditorProps) {
-  const [title, setTitle] = useState(note?.title || "");
-  const [tags, setTags] = useState(note?.tags?.join(", ") || "");
-  const [lastEdited, setLastEdited] = useState(
-    note?.lastEdited ? new Date(note.lastEdited).toLocaleString() : "Not yet saved"
+const initialState = {
+  message: null as string | null,
+  error: null as string | null,
+  note: null as Note | null,
+};
+
+function SaveButton() {
+  const { pending } = useFormStatus();
+  return (
+    <Button type="submit" aria-disabled={pending}>
+      {pending ? "Saving..." : "Save Note"}
+    </Button>
   );
-  const [content, setContent] = useState(note?.content || "");
+}
 
-  // Update state when new note is selected
-  useEffect(() => {
-    setTitle(note?.title || "");
-    setTags(note?.tags?.join(", ") || "");
-    setLastEdited(note?.lastEdited ? new Date(note.lastEdited).toLocaleString() : "Not yet saved");
-    setContent(note?.content || "");
-  }, [note]);
-
-  const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(e.target.value);
-    setLastEdited(new Date().toLocaleString());
-  };
+export default function NoteEditor({ note }: NoteEditorProps) {
+  const [state, formAction] = useActionState(updateNote, initialState);
 
   return (
-    <div className="flex h-full flex-col p-3">
+    <form action={formAction} className="flex h-full flex-col">
+      <Input type="hidden" name="id" value={note?.id} />
+
       {/* Title Input */}
       <div>
         <Input
           type="text"
+          name="title"
           placeholder="Enter a title..."
           className="h-auto border-none bg-transparent pl-1 !text-4xl font-semibold leading-tight focus:ring-0"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          defaultValue={note?.title ?? ""}
+          required
         />
       </div>
 
@@ -55,10 +58,10 @@ export default function NoteEditor({ note }: NoteEditorProps) {
           </div>
           <Input
             type="text"
+            name="tags"
             placeholder="Add tags separated by commas (e.g. Work, Planning)"
             className="w-full border-none bg-transparent pl-1 focus:ring-0"
-            value={tags}
-            onChange={(e) => setTags(e.target.value)}
+            defaultValue={note?.tags?.join(", ") ?? ""}
           />
         </div>
 
@@ -68,27 +71,46 @@ export default function NoteEditor({ note }: NoteEditorProps) {
             <Clock className="h-5 w-5" />
             <span className="w-24">Last Edited</span>
           </div>
-          <span className="rounded-md bg-transparent py-1 pl-1 text-gray-400">{lastEdited}</span>
+          <span className="rounded-md bg-transparent py-1 pl-1 text-gray-400">
+            {new Date(note?.lastEdited || "").toLocaleString() || "Not yet saved"}
+          </span>
         </div>
       </div>
 
       {/* Note Content (Text Editor) */}
       <div className="flex flex-1 flex-col">
         <Textarea
+          name="content"
           placeholder="Start typing your note here..."
           className="flex-1 resize-none border-none bg-transparent pl-1 text-lg focus:ring-0"
-          value={content}
-          onChange={handleContentChange}
+          defaultValue={note?.content ?? ""}
+          required
         />
       </div>
 
       {/* stay to bottom with save and cancel buttons */}
-      <div className="mt-3 flex space-x-2 border-t pt-2">
-        <Button variant="default">Save Note</Button>
-        <Button variant="secondary" disabled>
-          Cancel
-        </Button>
+      <div className="mt-3 flex items-center justify-between space-x-2 border-t pt-2">
+        <div className="flex space-x-2">
+          <SaveButton />
+          <Button variant="secondary" disabled>
+            Cancel
+          </Button>
+        </div>
+
+        <DeleteNoteButton noteId={note?.id || ""} />
       </div>
-    </div>
+
+      {/* ✅ Display Message or Error */}
+      {state?.message && (
+        <p aria-live="polite" className="mt-2 text-sm text-green-600">
+          {state.message}
+        </p>
+      )}
+      {state?.error && (
+        <p aria-live="polite" className="mt-2 text-sm text-red-500">
+          {state.error}
+        </p>
+      )}
+    </form>
   );
 }

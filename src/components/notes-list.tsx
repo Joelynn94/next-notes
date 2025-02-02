@@ -1,10 +1,9 @@
 "use client";
 
+import NewNoteButton from "@/components/new-note-button";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Note } from "@/db/schema/notes";
-import { Plus } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -17,9 +16,7 @@ const NotesList = ({ notes = [] }: NoteListProps) => {
 
   return (
     <div className="grid gap-4">
-      <Button variant="default" className="w-full">
-        <Plus /> Create New Note
-      </Button>
+      <NewNoteButton />
       <ul className="space-y-2">
         {notes &&
           notes.map((note) => {
