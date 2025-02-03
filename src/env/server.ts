@@ -1,7 +1,7 @@
 import { createEnv } from "@t3-oss/env-nextjs";
 import { config } from "dotenv";
 import { expand } from "dotenv-expand";
-import { ZodError, z } from "zod";
+import { z } from "zod";
 
 expand(config());
 
@@ -20,11 +20,13 @@ export const env = createEnv({
     DATABASE_URL: z.string().url(),
     DB_MIGRATING: z
       .string()
-      .refine((s) => s === "true" || s === "false")
-      .transform((s) => s === "true")
-      .optional(),
+      .optional()
+      .refine((s) => s === "true" || s === "false", {
+        message: "DB_MIGRATING must be 'true' or 'false'",
+      })
+      .transform((s) => s === "true"), // Transform to boolean only if provided
   },
-  onValidationError: (error: ZodError) => {
+  onValidationError: (error: z.ZodError) => {
     console.error("❌ Invalid environment variables:", error.flatten().fieldErrors);
     process.exit(1);
   },
