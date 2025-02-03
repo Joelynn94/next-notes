@@ -16,7 +16,7 @@ const NoteDetails = () => {
       </p>
 
       <div className="flex space-x-2">
-        <button className="dark:bg-app-950 flex-1 rounded-lg border border-gray-300 bg-gray-100 py-2 hover:bg-gray-200 dark:border-gray-600 dark:hover:bg-gray-700">
+        <button className="flex-1 rounded-lg border border-gray-300 bg-gray-100 py-2 hover:bg-gray-200 dark:border-gray-600 dark:bg-app-950 dark:hover:bg-gray-700">
           Archive Note
         </button>
         <button className="flex-1 rounded-lg border border-red-500 bg-red-500 py-2 text-white hover:bg-red-600">

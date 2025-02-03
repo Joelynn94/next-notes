@@ -43,7 +43,7 @@ export default async function RootLayout({
               <AppNavbar />
               <div className="flex h-full">
                 {/* aside */}
-                <aside className="w-lg dark:bg-app-950 flex flex-col border-r border-gray-200 bg-gray-50 p-4 dark:border-gray-700">
+                <aside className="w-lg flex flex-col border-r border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-app-950">
                   <div className="flex-1 overflow-y-auto pr-4">
                     <NotesList notes={notesResult} />
                   </div>

@@ -111,7 +111,7 @@ export async function deleteNote(id: string): Promise<void> {
       return;
     }
     // Ensure cache is refreshed after deleting the note
-    revalidatePath(`/`);
+    revalidatePath("/");
     redirect("/");
   } catch (error) {
     console.error("Database error:", error);

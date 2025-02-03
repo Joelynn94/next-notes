@@ -9,6 +9,8 @@ services:
       - db
     networks:
       - my_network
+    volumes:
+      - ./node_modules:/app/node_modules # Cache node_modules
 
   db:
     image: postgres:16.4

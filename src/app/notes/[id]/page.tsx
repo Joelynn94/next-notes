@@ -4,11 +4,12 @@ import { notes } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
 interface NotePageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>; // ✅ Fix: Ensure it's treated as a Promise
 }
 
 export default async function NotePage({ params }: NotePageProps) {
-  const { id: noteId } = await params;
+  const resolvedParams = await params; // ✅ Await the params object
+  const { id: noteId } = resolvedParams;
 
   if (!noteId) {
     return <p className="p-6 text-red-500">Invalid Note ID.</p>;

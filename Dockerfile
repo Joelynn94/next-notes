@@ -1,14 +1,13 @@
 # Stage 1: Install dependencies
 FROM node:lts-slim AS deps
 WORKDIR /app
+RUN npm install -g pnpm
 COPY package.json pnpm-lock.yaml ./
-RUN npm install -g pnpm \
-    && pnpm install --frozen-lockfile
+RUN pnpm install --frozen-lockfile
 
 # Stage 2: Build the application
 FROM node:lts-slim AS builder
 WORKDIR /app
-RUN npm install -g pnpm
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN pnpm run build
