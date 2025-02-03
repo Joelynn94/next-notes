@@ -8,8 +8,9 @@ RUN pnpm install --frozen-lockfile
 # Stage 2: Build the application
 FROM node:lts-slim AS builder
 WORKDIR /app
+RUN npm install -g pnpm
 COPY --from=deps /app/node_modules ./node_modules
-COPY . .
+COPY . . 
 RUN pnpm run build
 
 # Stage 3: Production server
