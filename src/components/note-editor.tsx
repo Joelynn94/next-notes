@@ -1,4 +1,5 @@
 "use client";
+import { useMemo, useState } from "react";
 
 import { updateNote } from "@/app/notes/actions";
 import { Button } from "@/components/ui/button";
@@ -32,6 +33,25 @@ function SaveButton() {
 export default function NoteEditor({ note }: NoteEditorProps) {
   const [state, formAction] = useActionState(updateNote, initialState);
 
+  // store initial state of the note so we can reset it later
+  const [title, setTitle] = useState(note?.title ?? "");
+  const [tags, setTags] = useState(note?.tags?.join(", ") ?? "");
+  const [content, setContent] = useState(note?.content ?? "");
+
+  // reset the form to the initial state
+  const handleCancel = () => {
+    if (window.confirm("Are you sure you want to discard changes?")) {
+      setTitle(note?.title ?? "");
+      setTags(note?.tags?.join(", ") ?? "");
+      setContent(note?.content ?? "");
+    }
+  };
+
+  const hasNoteChanged = useMemo(
+    () => title !== note?.title || tags !== note?.tags?.join(", ") || content !== note?.content,
+    [title, tags, content, note]
+  );
+
   return (
     <form action={formAction} className="flex h-full flex-col">
       <Input type="hidden" name="id" value={note?.id} />
@@ -43,7 +63,8 @@ export default function NoteEditor({ note }: NoteEditorProps) {
           name="title"
           placeholder="Enter a title..."
           className="h-auto border-none bg-transparent pl-1 !text-4xl font-semibold leading-tight focus:ring-0"
-          defaultValue={note?.title ?? ""}
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
           required
         />
       </div>
@@ -61,7 +82,8 @@ export default function NoteEditor({ note }: NoteEditorProps) {
             name="tags"
             placeholder="Add tags separated by commas (e.g. Work, Planning)"
             className="w-full border-none bg-transparent pl-1 focus:ring-0"
-            defaultValue={note?.tags?.join(", ") ?? ""}
+            value={tags}
+            onChange={(e) => setTags(e.target.value)}
           />
         </div>
 
@@ -78,12 +100,13 @@ export default function NoteEditor({ note }: NoteEditorProps) {
       </div>
 
       {/* Note Content (Text Editor) */}
-      <div className="flex flex-1 flex-col">
+      <div className="flex max-h-[800px] flex-1 flex-col">
         <Textarea
           name="content"
           placeholder="Start typing your note here..."
           className="flex-1 resize-none border-none bg-transparent pl-1 text-lg focus:ring-0"
-          defaultValue={note?.content ?? ""}
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
           required
         />
       </div>
@@ -92,7 +115,12 @@ export default function NoteEditor({ note }: NoteEditorProps) {
       <div className="mt-3 flex items-center justify-between space-x-2 border-t pt-2">
         <div className="flex space-x-2">
           <SaveButton />
-          <Button variant="secondary" disabled>
+          <Button
+            variant="secondary"
+            type="button"
+            onClick={handleCancel}
+            disabled={!hasNoteChanged}
+          >
             Cancel
           </Button>
         </div>
