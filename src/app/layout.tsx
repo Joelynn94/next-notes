@@ -39,12 +39,12 @@ export default async function RootLayout({
         <Providers>
           <SidebarProvider defaultOpen={defaultOpen}>
             <AppSidebar />
-            <main className="grow">
+            <main className="min-h- flex flex-1 flex-col">
               <AppNavbar />
-              <div className="flex h-full">
+              <div className="flex min-h-0 flex-1 overflow-hidden">
                 {/* aside */}
-                <aside className="w-lg flex flex-col border-r border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-app-950">
-                  <div className="flex-1 overflow-y-auto pr-4">
+                <aside className="w-lg flex flex-col overflow-y-auto border-r border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-app-950">
+                  <div className="flex-1 pb-4">
                     <NotesList notes={notesResult} />
                   </div>
                 </aside>

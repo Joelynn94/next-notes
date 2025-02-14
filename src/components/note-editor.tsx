@@ -100,7 +100,7 @@ export default function NoteEditor({ note }: NoteEditorProps) {
       </div>
 
       {/* Note Content (Text Editor) */}
-      <div className="flex max-h-[800px] flex-1 flex-col">
+      <div className="flex flex-1 flex-col">
         <Textarea
           name="content"
           placeholder="Start typing your note here..."
