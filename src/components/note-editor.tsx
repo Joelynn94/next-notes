@@ -62,7 +62,7 @@ export default function NoteEditor({ note }: NoteEditorProps) {
           type="text"
           name="title"
           placeholder="Enter a title..."
-          className="h-auto border-none bg-transparent pl-1 !text-4xl font-semibold leading-tight focus:ring-0"
+          className="h-[3.5rem] overflow-visible border-none bg-transparent pl-1 !text-4xl font-semibold leading-[3.5rem] leading-tight focus:ring-0"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
