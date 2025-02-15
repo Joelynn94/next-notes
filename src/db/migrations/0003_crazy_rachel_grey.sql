@@ -1,0 +1,1 @@
+ALTER TABLE "notes" ALTER COLUMN "isArchived" SET DATA TYPE boolean;
