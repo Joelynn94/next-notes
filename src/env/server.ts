@@ -26,8 +26,13 @@ export const env = createEnv({
       })
       .transform((s) => s === "true"), // Transform to boolean only if provided
   },
-  onValidationError: (error: z.ZodError) => {
-    console.error("❌ Invalid environment variables:", error.flatten().fieldErrors);
+  onValidationError: (error: unknown) => {
+    console.log(typeof error);
+    if (error instanceof z.ZodError) {
+      console.error("❌ Invalid environment variables:", error.flatten().fieldErrors);
+    } else {
+      console.error("❌ Unknown validation error:", error);
+    }
     process.exit(1);
   },
   emptyStringAsUndefined: true,

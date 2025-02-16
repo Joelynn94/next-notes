@@ -7,10 +7,12 @@
     "start": "node .next/standalone/server.js",
     "lint": "next lint",
     "format": "prettier src/ --write",
+    "db:generate": "pnpm drizzle-kit generate",
     "db:migrate": "cross-env DB_MIGRATING=true drizzle-kit migrate",
+    "db:push": "pnpm drizzle-kit push",
     "db:studio": "pnpm drizzle-kit studio",
     "db:seed": "tsx src/scripts/seed.ts",
-    "db:generate": "pnpm drizzle-kit generate"
+    "db:check": "pnpm drizzle-kit check"
   },
   "dependencies": {
     "@auth/drizzle-adapter": "^1.7.4",
