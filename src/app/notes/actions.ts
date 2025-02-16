@@ -119,3 +119,26 @@ export async function deleteNote(id: string): Promise<void> {
 
   redirect("/");
 }
+
+export async function archiveNote(id: string, isArchived: boolean): Promise<void> {
+  try {
+    const archivedNote = await db
+      .update(notes)
+      .set({ isArchived })
+      .where(eq(notes.id, id))
+      .returning()
+      .then((res) => res[0]);
+
+    if (!archivedNote) {
+      console.error("Note not found.");
+      return;
+    }
+    // Ensure cache is refreshed after archiving the note
+    revalidatePath("/");
+    redirect("/");
+  } catch (error) {
+    console.error("Database error:", error);
+  }
+
+  redirect("/");
+}

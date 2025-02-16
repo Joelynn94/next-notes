@@ -9,6 +9,7 @@ import { Note } from "@/db/schema/notes";
 import { Clock, Tag } from "lucide-react";
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
+import ArchiveNoteButton from "./archive-note-button";
 import DeleteNoteButton from "./delete-note-button";
 
 interface NoteEditorProps {
@@ -125,7 +126,10 @@ export default function NoteEditor({ note }: NoteEditorProps) {
           </Button>
         </div>
 
-        <DeleteNoteButton noteId={note?.id || ""} />
+        <div className="flex space-x-2">
+          <ArchiveNoteButton noteId={note?.id || ""} isArchived={note?.isArchived || false} />
+          <DeleteNoteButton noteId={note?.id || ""} />
+        </div>
       </div>
 
       {/* ✅ Display Message or Error */}
