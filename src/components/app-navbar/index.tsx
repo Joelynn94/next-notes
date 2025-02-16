@@ -12,10 +12,12 @@ import {
 import { DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Search, Settings } from "lucide-react"; // For the settings icon (you can use any icon library)
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname(); // Get the pathname
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -28,23 +30,29 @@ const Header = () => {
     return () => document.removeEventListener("keydown", down);
   }, []);
 
+  const getTitle = () => {
+    if (pathname === "/notes/archived") {
+      return "Archived Notes";
+    } else if (pathname.startsWith("/notes/")) {
+      return "Note Details";
+    } else if (pathname === "/notes") {
+      //For /notes route
+      return "All Notes";
+    } else {
+      return "Home"; // Default title
+    }
+  };
+
   return (
     <header className="flex items-center justify-between border-b border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-app-950">
       {/* Left Section: Title and Button */}
       <div className="flex items-center space-x-4">
         <SidebarTrigger />
-        <h1 className="text-xl font-semibold text-gray-800 dark:text-gray-100">All Notes</h1>
+        <h1 className="text-xl font-semibold text-gray-800 dark:text-gray-100">{getTitle()}</h1>
       </div>
 
       {/* Right Section: Search and Settings */}
       <div className="flex items-center space-x-4">
-        {/* <Input
-          type="search"
-          placeholder="Search by title, content, or tags..."
-          className="w-64"
-          onClick={() => setOpen(true)}
-        /> */}
-
         <Button variant="outline" onClick={() => setOpen(true)}>
           <Search className="h-12 w-12 text-gray-800 dark:text-gray-100" />
           Search by title, content, or tags...

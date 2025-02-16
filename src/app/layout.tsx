@@ -7,10 +7,6 @@ import Providers from "@/components/providers";
 import { SidebarProvider } from "@/components/ui/sidebar";
 
 import AppNavbar from "@/components/app-navbar";
-import NotesList from "@/components/notes-list";
-import db from "@/db";
-import { notes } from "@/db/schema";
-import { desc, not } from "drizzle-orm";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -25,11 +21,6 @@ export default async function RootLayout({
 }>) {
   const cookieStore = await cookies();
   const defaultOpen = cookieStore.get("sidebar:state")?.value === "true";
-  const notesResult = await db
-    .select()
-    .from(notes)
-    .where(not(notes.isArchived))
-    .orderBy(desc(notes.createdAt));
 
   return (
     <html lang="en" suppressHydrationWarning className="h-full">
@@ -46,11 +37,6 @@ export default async function RootLayout({
             <main className="min-h- flex flex-1 flex-col">
               <AppNavbar />
               <div className="flex min-h-0 flex-1 overflow-hidden">
-                <aside className="w-lg flex flex-col overflow-y-auto border-r border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-app-950">
-                  <div className="flex-1 pb-4">
-                    <NotesList notes={notesResult} />
-                  </div>
-                </aside>
                 <Suspense>{children}</Suspense>
               </div>
             </main>
