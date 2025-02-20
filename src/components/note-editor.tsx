@@ -59,7 +59,7 @@ export default function NoteEditor({ note }: NoteEditorProps) {
   return (
     <div className="flex h-full flex-col">
       <div className="flex items-center justify-between pb-3">
-        <Link href={`/notes/`} className="hover:text-blue-500">
+        <Link href="/notes" className="hover:text-blue-500">
           <div className="flex items-center">
             <ChevronLeft /> Go Back
           </div>
