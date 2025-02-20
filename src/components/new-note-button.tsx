@@ -1,3 +1,5 @@
+"use client";
+
 import { createNote } from "@/app/notes/actions";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";

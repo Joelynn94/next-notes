@@ -25,7 +25,7 @@ export default async function NotePage({ params }: NotePageProps) {
   }
 
   return (
-    <div className="flex-1 p-6">
+    <div className="flex-1 p-6 pt-3">
       <NoteEditor note={note} />
     </div>
   );

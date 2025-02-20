@@ -36,7 +36,7 @@ export default async function RootLayout({
             <AppSidebar />
             <main className="min-h- flex flex-1 flex-col">
               <AppNavbar />
-              <div className="flex min-h-0 flex-1 overflow-hidden">
+              <div className="flex min-h-0 flex-1">
                 <Suspense>{children}</Suspense>
               </div>
             </main>

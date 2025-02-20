@@ -14,7 +14,7 @@ export default function DeleteNoteButton({ noteId }: { noteId: string }) {
   return (
     <Button variant="destructive" onClick={handleDelete} className="ml-auto">
       <Trash />
-      Delete
+      <span className="hidden xl:inline-block">Delete</span>
     </Button>
   );
 }

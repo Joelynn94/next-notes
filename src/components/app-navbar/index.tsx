@@ -44,7 +44,7 @@ const Header = () => {
   };
 
   return (
-    <header className="flex items-center justify-between border-b border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-app-950">
+    <header className="flex items-center justify-between border-b border-gray-200 bg-gray-50 p-3 dark:border-gray-700 dark:bg-app-950">
       {/* Left Section: Title and Button */}
       <div className="flex items-center space-x-4">
         <SidebarTrigger />

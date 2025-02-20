@@ -39,9 +39,9 @@ export function AppSidebar() {
 
   return (
     <Sidebar>
-      <SidebarContent>
+      <SidebarContent className="pt-2">
         <SidebarGroup>
-          <SidebarGroupLabel className="mb-4">
+          <SidebarGroupLabel>
             <div className="flex items-center gap-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -68,22 +68,22 @@ export function AppSidebar() {
               <h3 className="text-3xl font-semibold">Notes</h3>
             </div>
           </SidebarGroupLabel>
-          <SidebarGroupContent>
+          <SidebarGroupContent className="mt-3">
             <SidebarMenu>
               {items.map((item) => {
                 const isActive = pathname === item.url;
 
                 return (
-                  <SidebarMenuItem
-                    key={item.title}
-                    className={`block rounded-lg px-4 py-1 transition-colors ${
-                      isActive
-                        ? "bg-app-200 dark:bg-app-800" // Active Note
-                        : "hover:bg-app-100 dark:hover:bg-app-800" // Hover
-                    }`}
-                  >
+                  <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild>
-                      <Link href={item.url}>
+                      <Link
+                        href={item.url}
+                        className={`block h-full rounded-lg py-2 transition-colors ${
+                          isActive
+                            ? "bg-app-200 dark:bg-app-800" // Active Note
+                            : "hover:bg-app-100 dark:hover:bg-app-800" // Hover
+                        }`}
+                      >
                         <item.icon className="mr-2 h-5 w-5" />
                         <span>{item.title}</span>
                         {isActive && ( // Conditionally render the arrow

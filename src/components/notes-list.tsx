@@ -16,8 +16,11 @@ const NotesList = ({ notes = [] }: NoteListProps) => {
 
   return (
     <div className="grid gap-4">
-      <NewNoteButton />
+      <div className="flex w-full items-center justify-between">
+        <NewNoteButton />
+      </div>
       <ul className="space-y-2">
+        <Separator />
         {notes &&
           notes.map((note) => {
             const isActive = pathname === `/notes/${note.id}`;

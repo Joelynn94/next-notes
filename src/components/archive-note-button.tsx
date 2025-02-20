@@ -21,11 +21,13 @@ export default function ArchiveNoteButton({
     <Button variant="secondary" onClick={handleArchive} className="ml-auto">
       {isArchived ? (
         <>
-          <RotateCcw /> Unarchive
+          <RotateCcw />
+          <span className="hidden xl:inline-block">Unarchive</span>
         </>
       ) : (
         <>
-          <Archive /> Archive
+          <Archive />
+          <span className="hidden xl:inline-block">Archive</span>
         </>
       )}
     </Button>
