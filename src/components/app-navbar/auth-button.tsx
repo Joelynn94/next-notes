@@ -6,12 +6,14 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { IconBrandGoogle } from "@tabler/icons-react";
+import { LogOut } from "lucide-react";
 import { signIn, signOut, useSession } from "next-auth/react";
 
-export default function AuthButton({ minimal = true }: { minimal?: boolean }) {
+export default function AuthButton() {
   const { data, status } = useSession();
 
   if (status === "authenticated") {
@@ -19,14 +21,6 @@ export default function AuthButton({ minimal = true }: { minimal?: boolean }) {
       signOut({
         callbackUrl: "/",
       });
-    if (minimal) {
-      return (
-        <Button onClick={signOutClick} color="danger" variant="ghost">
-          <IconBrandGoogle />
-          Sign Out
-        </Button>
-      );
-    }
 
     return (
       <DropdownMenu>
@@ -37,12 +31,14 @@ export default function AuthButton({ minimal = true }: { minimal?: boolean }) {
           </Avatar>
         </DropdownMenuTrigger>
         <DropdownMenuContent aria-label="Profile Actions">
-          <DropdownMenuItem key="profile" className="h-14 gap-2">
+          <DropdownMenuItem key="profile" className="flex flex-col items-start justify-start gap-2">
             <p className="font-semibold">Signed in as</p>
             <p className="font-semibold">{data.user?.email}</p>
           </DropdownMenuItem>
-          <DropdownMenuItem key="sign-out" color="danger" onClick={signOutClick}>
-            Sign Out
+          <DropdownMenuSeparator />
+          <DropdownMenuItem key="sign-out" onClick={signOutClick}>
+            <LogOut />
+            <span>Log out</span>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

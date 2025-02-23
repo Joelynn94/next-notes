@@ -111,13 +111,12 @@ export async function deleteNote(id: string): Promise<void> {
       return;
     }
     // Ensure cache is refreshed after deleting the note
-    revalidatePath("/");
-    redirect("/");
+    revalidatePath("/notes");
   } catch (error) {
     console.error("Database error:", error);
   }
 
-  redirect("/");
+  redirect("/notes");
 }
 
 export async function archiveNote(id: string, isArchived: boolean): Promise<void> {
@@ -135,10 +134,9 @@ export async function archiveNote(id: string, isArchived: boolean): Promise<void
     }
     // Ensure cache is refreshed after archiving the note
     revalidatePath("/");
-    redirect("/");
   } catch (error) {
     console.error("Database error:", error);
   }
 
-  redirect("/");
+  redirect("/notes");
 }

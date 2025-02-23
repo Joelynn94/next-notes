@@ -14,6 +14,7 @@ import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Search, Settings } from "lucide-react"; // For the settings icon (you can use any icon library)
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import AuthButton from "./auth-button";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
@@ -78,6 +79,7 @@ const Header = () => {
         <Button variant="outline" className="h-10 w-10 p-0">
           <Settings className="h-12 w-12 text-gray-800 dark:text-gray-100" />
         </Button>
+        <AuthButton />
       </div>
     </header>
   );

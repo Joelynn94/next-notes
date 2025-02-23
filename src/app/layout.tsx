@@ -1,12 +1,8 @@
+import Providers from "@/components/providers";
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import { Suspense } from "react";
 
-import { AppSidebar } from "@/components/app-sidebar";
-import Providers from "@/components/providers";
-import { SidebarProvider } from "@/components/ui/sidebar";
-
-import AppNavbar from "@/components/app-navbar";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -32,15 +28,7 @@ export default async function RootLayout({
       </head>
       <body className="flex h-screen flex-col">
         <Providers>
-          <SidebarProvider defaultOpen={defaultOpen}>
-            <AppSidebar />
-            <main className="min-h- flex flex-1 flex-col">
-              <AppNavbar />
-              <div className="flex min-h-0 flex-1">
-                <Suspense>{children}</Suspense>
-              </div>
-            </main>
-          </SidebarProvider>
+          <Suspense>{children}</Suspense>
         </Providers>
       </body>
     </html>

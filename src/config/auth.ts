@@ -6,9 +6,6 @@ import db from "@/db";
 import { env } from "@/env/server";
 
 const options: NextAuthOptions = {
-  pages: {
-    signIn: "/",
-  },
   adapter: DrizzleAdapter(db),
   callbacks: {
     session({ session, user }) {
