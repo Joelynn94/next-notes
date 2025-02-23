@@ -1,11 +1,13 @@
-import { pgTable, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
 
-const users = pgTable("users", {
-  id: uuid("id").primaryKey().defaultRandom(),
-  name: varchar("name", { length: 255 }),
-  email: varchar("email", { length: 320 }).notNull().unique(),
+const users = pgTable("user", {
+  id: uuid("id")
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()), // ✅ Change to UUID
+  name: text("name"),
+  email: text("email").unique(),
   emailVerified: timestamp("emailVerified", { mode: "date" }),
-  image: varchar("image", { length: 2048 }).notNull(),
+  image: text("image"),
 });
 
 export default users;

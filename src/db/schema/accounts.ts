@@ -4,7 +4,7 @@ import type { AdapterAccount } from "next-auth/adapters";
 import users from "./users";
 
 const accounts = pgTable(
-  "accounts",
+  "account",
   {
     userId: uuid("userId")
       .notNull()
@@ -20,11 +20,12 @@ const accounts = pgTable(
     id_token: text("id_token"),
     session_state: text("session_state"),
   },
-  (account) => ({
-    compoundKey: primaryKey({
-      columns: [account.provider, account.providerAccountId],
-    }),
-  })
+  (account) => [
+    {
+      compoundKey: primaryKey({
+        columns: [account.provider, account.providerAccountId],
+      }),
+    },
+  ]
 );
-
 export default accounts;
